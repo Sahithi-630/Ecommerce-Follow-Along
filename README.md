@@ -22,52 +22,7 @@ Whether you're a beginner or intermediate developer, this project will help you 
 - **Authentication**: JWT (JSON Web Tokens) for secure authentication
 - **Payment Gateway Integration**: Stripe (optional)
 
-## Installation
 
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/yourusername/Ecommerce-Follow-Along.git
-    cd Ecommerce-Follow-Along
-    ```
-
-2. Install dependencies:
-
-    - Backend:
-      ```bash
-      cd backend
-      npm install
-      ```
-
-    - Frontend (if applicable):
-      ```bash
-      cd frontend
-      npm install
-      ```
-
-3. Set up environment variables:
-
-    Create a `.env` file in the root directory of the backend and add the following environment variables:
-
-    ```plaintext
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_jwt_secret
-    STRIPE_SECRET_KEY=your_stripe_secret_key (optional)
-    ```
-
-4. Start the application:
-
-    - Backend:
-      ```bash
-      cd backend
-      npm start
-      ```
-
-    - Frontend (if applicable):
-      ```bash
-      cd frontend
-      npm start
-      ```
 
 ## Usage
 
