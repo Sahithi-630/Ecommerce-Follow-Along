@@ -22,3 +22,11 @@ Whether you're a beginner or intermediate developer, this project will help you 
 - **Authentication**: JWT (JSON Web Tokens) for secure authentication
 - **Payment Gateway Integration**: Stripe (optional)
 
+  # Milestone 1
+  Completed foundation for E-commerce Application
+
+  # Milestone 2
+  *Separate folders for frontend and backend.
+  *A functional Login Page in the frontend.
+  *Completed setting for tailwind-css
+
