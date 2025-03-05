@@ -30,3 +30,8 @@ Whether you're a beginner or intermediate developer, this project will help you 
   *A functional Login Page in the frontend.
   *Completed setting for tailwind-css
 
+  # Milestone3
+  * Organized the backend folder structure for scalability.
+  * Connected the server to MongoDb using Mongoose.
+  * Implemented error-handling middleware for API stability.
+
