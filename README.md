@@ -35,3 +35,9 @@ Whether you're a beginner or intermediate developer, this project will help you 
   * Connected the server to MongoDb using Mongoose.
   * Implemented error-handling middleware for API stability.
 
+  # Milestone 4
+  * Created the **User Model** in Mongoose to define user data structure.
+  * Develop the **User Controller** to manage user authentication (signup,login).
+  * Implementing **Multer for file handling**,allowing user profile and product image uploads.
+  
+
