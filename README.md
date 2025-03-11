@@ -33,11 +33,13 @@ Whether you're a beginner or intermediate developer, this project will help you 
   # Milestone3
   * Organized the backend folder structure for scalability.
   * Connected the server to MongoDb using Mongoose.
-  * Implemented error-handling middleware for API stability.
+  * Implemented error-handling middleware for API stability.
 
   # Milestone 4
   * Created the **User Model** in Mongoose to define user data structure.
   * Develop the **User Controller** to manage user authentication (signup,login).
   * Implementing **Multer for file handling**,allowing user profile and product image uploads.
   
-
+  # Milestone 5
+  *Created the **Sign up page** in React and added code for signup backend also.
+  *Added the **Sign up page** validation in (signup, login).
