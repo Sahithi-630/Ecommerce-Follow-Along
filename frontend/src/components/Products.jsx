@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Card from './Card';
-
+import styles from "./products.module.css";
 
 const Products = () => {
 
@@ -22,13 +22,16 @@ const Products = () => {
     },[])
 
   return (
-    <div>
-      {
-        products.map((ele)=>{
-            return <Card key={ele.id} product={ele}/>
-        })
-      }
+    <>
+        <h1>Products</h1>
+        <div className={styles.products}>
+        {
+            products.map((ele)=>{
+                return <Card key={ele.id} product={ele}/>
+            })
+        }
     </div>
+    </>
   )
 }
 
