@@ -48,6 +48,11 @@ Whether you're a beginner or intermediate developer, this project will help you 
   *Added the **password encryption** in backend signup page.
   *Added comparision for checking password is correct or not in login backend.
 
-  # **Milestone 7: **
-  *Understand how to validate user credentials during login.
-  *Learn how to compare the encrypted password with the user’s input.
+  # **Milestone 7:Password decrypt by using bcryptjs**
+  *Added the **Password authentication** in backend login page.
+  *Here we are first getting the hashed password from db searchrd by email and then comparing the input body password with hashed password by compare method in bcryptjs.
+
+  # **Milestone 8:Product page in frontend**
+  *Added the **Product page** in Frontend as a Homepage.
+
+  
