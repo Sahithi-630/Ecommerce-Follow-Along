@@ -55,4 +55,8 @@ Whether you're a beginner or intermediate developer, this project will help you 
   # **Milestone 8:Product page in frontend**
   *Added the **Product page** in Frontend as a Homepage.
 
+  # **Milestone 9:Created form for product upload **
+  *Created the **AddProducts** page in frontend.
+  *Add form validation in AddProducts page.
+
   
