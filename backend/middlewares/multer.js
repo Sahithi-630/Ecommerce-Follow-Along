@@ -1,4 +1,4 @@
-const multer = require('multer');
+const multer = require("multer");
 const path = require("path");
 
 
@@ -8,6 +8,16 @@ const userImageStore = multer.diskStorage({
       cb(null,path.join(__dirname, "../upload/userImages"));
     },
     filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    }
+  });
+
+  const productImagesStore = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(__dirname, "../uploads/productImages"));
+    },
+    fileName: function (req, file, cb) {\
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
       cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
     }
@@ -38,5 +48,29 @@ const userImageStore = multer.diskStorage({
     }
   });
 
+  const productImages = multer({
+    storage: ProductImageStore , 
+    limits:{fileSize:5*1024*1024},
+    fileFilter:(req,file,cb)=>{
+      const extention = path.extname(file.originalname).toLowerCase();
+      const mimetype = file.mimetype;
+      const allowedExtention ={
+        jpeg:true,
+        png:true,
+        jpg:true
+      }
+      const allowedMimetype = {
+        "image/jpeg":true,
+        "image/png":true,
+        "image/jpg":true,
+      }
 
-  module.export = uploadUserImage;
+      if(!allowedExtention[extention] && !allowedMimetype[mimetype]){
+        cb(new Error("File extention not allowed"))
+      }else{
+        cb(null,true)
+      }
+    }
+  });
+
+  module.exports = {userImage, productImages };

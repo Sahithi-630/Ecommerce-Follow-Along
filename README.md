@@ -59,4 +59,8 @@ Whether you're a beginner or intermediate developer, this project will help you 
   *Created the **AddProducts** page in frontend.
   *Add form validation in AddProducts page.
 
+  # **Milestone 10:Created schema product upload**
+  *Created **ProductModel** in backend .
+  *Created the **productRouter** page in Backend.
+  *Handeled file uploads by multer inside middleware multer.
   
