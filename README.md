@@ -64,3 +64,6 @@ Whether you're a beginner or intermediate developer, this project will help you 
   *Created the **productRouter** page in Backend.
   *Handeled file uploads by multer inside middleware multer.
   
+  # **Milestone 11:Created home page for product**
+  *Created **Home page** for dynamic products presentation.
+  *added the **backend** part for handelling products(created endpoint to get products).
