@@ -67,3 +67,8 @@ Whether you're a beginner or intermediate developer, this project will help you 
   # **Milestone 11:Created home page for product**
   *Created **Home page** for dynamic products presentation.
   *added the **backend** part for handelling products(created endpoint to get products).
+
+  # **Milestone 12:Showing product according to the user**
+  *Created **Product page** for dynamic product according to the user mail.
+  *Created backend for specific user products.
+  
