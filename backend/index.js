@@ -33,7 +33,8 @@ app.use("/product",async(req,res)=>{
         const decode = jwt.verify(token, process.env.JWT_PASSWORD);
         const user = await userModel.findOne({_id:decoded.id});
         if(!user){
-            return res.status(401).send({message:"Please register first"})
+            return res.status(401).send({message:"Please register first"});
+        }
         console.log(decode)
         next();
     } catch (error) {

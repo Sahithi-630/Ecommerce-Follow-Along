@@ -5,8 +5,8 @@ const schema = mongoose.Schema({
     description:{type:String,requied:true,trim:true},
     price:{type:Number,required:true},
     images:{type:[String],required:true},
-    createdAt:{type:Date,default:Date.now}
-})
+    userId: {type:mongoose.Schema.Types.ObjectId, ref:"user",required:true}
+},{timestamps:true});
 
 const productModel = mongoose.model("products",schema);
 

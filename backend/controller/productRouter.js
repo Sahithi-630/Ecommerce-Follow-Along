@@ -6,29 +6,37 @@ const productModel = require("../models/productModel");
 
 const productImages = require("../middleware/multer");
 
-productRouter.post("/addproduct", async(req,res,next)=>{
-    productImages.array("images",6)(req,res(err)=>{
+const jwt = require('jsonwebtoken');
+
+productRouter.post("/addproduct",async(req,res,next)=>{
+    productImages.array("images",6)(req,res,(err)=>{
         if(err){
             return res.status(500).send({msg:"Something went wrong while uploading images"});
         }
     })
+
 },async(req,res)=>{
     try {
-        const{title,description,price} = req.body;
+        const {title,description,price} = req.body;
+        const auth = req.headers.authorization;
+        const decode = jwt.verify(token, process.env.JWT_PASSWORD);
         if(!title || !description || !price){
-            return res.status(404).send({msg:"Please add all fields"});
+            return res.status(404).send({msg:"Please fill all fields"});
         }
 
         const images = req.files;
-        const imageLinkArray =[];
+        const imageLinkArray = [];
+        console.log(images);
         images.forEach((ele)=>{
-            console.log(ele);
+            imageLinkArray.push(`http://localhost:8080/uploads/images`);
         })
-        return res.status(200).send({msg:"Products added successfully"});
+
+        return res.status(200).send({msg:"Product added sucessfully"});
 
     } catch (error) {
-        return res.status(500).send({msg:"Something wen wrong",error});
+        return res.status(500).send({msg:"Something went wrong",error});
     }
+
 })
 
-module .export = productRouter;
+module.exports = productRouter;

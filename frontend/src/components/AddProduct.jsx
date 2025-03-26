@@ -6,15 +6,17 @@ import styles from "./AddProduct.module.css";
 const AddProduct = () => {
     const[noOfImages,setNoOfImages] = useState(new Array(1).fill(1));
     const[productDetails,setProductDetails] = useState({
-      name:"",
-      email:"",
-      password:""
+      title:"",
+      description:"",
+      price:""
     });
     const[productImages,setProductImages] = useState([]);
     async function handleSubmit(e){
+      e.preventDefault();
       try {
-        const {name,email,password} = productDetails;
-        if(!name || !email || !password || productImages.length ==0){
+        const {title,description,price} = productDetails;
+        console.log(productImages);
+        if(!title || !description || !price || productImages.length ==0){
           alert("Please add all fields");
           return;
         }
@@ -76,6 +78,7 @@ const AddProduct = () => {
                 }} />
             ))
         }
+        <input type="submit" value={"Upload product"}/>
       </form>
     </div>
   )
