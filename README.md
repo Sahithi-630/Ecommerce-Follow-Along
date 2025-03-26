@@ -72,3 +72,6 @@ Whether you're a beginner or intermediate developer, this project will help you 
   *Created **Product page** for dynamic product according to the user mail.
   *Created backend for specific user products.
   
+  # *Milestone 13: Created product update **
+  *Created **Product update endpoint** for updating products.
+  *Created form for updating data in frontend and created autofill function.
