@@ -79,3 +79,6 @@ Whether you're a beginner or intermediate developer, this project will help you 
   # **Milestone 14: Created Product Delete**
   *Created **Product Delete Endpoint** for Updating products.
   *Created form for Deleting product in frontend.
+
+  # **Milestone 15:Created NavBar**
+  *Created **Navigation bar** for navigating between pages.

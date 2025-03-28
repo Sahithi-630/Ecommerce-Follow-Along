@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 async function connect(){
     try{
-        await mongoose.connect("mongodb+srv://BhumireddySahithi:<db_password>@clusterO.7rgzq.mongodb.net/")
+        await mongoose.connect("mongodb+srv://bhumireddysahithis89:PAWhQ8wSikMrTMJy@cluster0.tnfvraz.mongodb.net/")
 
     }catch(error){
         console.log("Mongo bd error",error);

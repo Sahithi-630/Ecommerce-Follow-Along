@@ -1,7 +1,7 @@
 const express = require("express");
 const productRouter = express.Router();
 const productModel = require("../models/productModel");
-const { productImages } = require("../middleware/multer");
+const { productImages } = require("../middlewares/multer");
 
 
 const uploadImages = (req, res, next) => {
@@ -23,18 +23,12 @@ productRouter.post("/addproduct", uploadImages, async (req, res) => {
     try {
         const { title, description, price } = req.body;
 
-        // Validate required fields BEFORE processing images
-        
-
-        // Ensure at least one image is uploaded
         if (!req.files || req.files.length === 0) {
             return res.status(400).json({ msg: "At least one image is required" });
         }
 
-        // Construct image URLs
-        const imageUrls = req.files.map(file => `http://localhost:8080/uploads/productImages/${file.filename}`);
+        const imageUrls = req.files.map(file => `http://localhost:8000/uploads/productImages/${file.filename}`);
 
-        // Save product only if validation passes
         const newProduct = new productModel({
             title,
             description,
@@ -52,5 +46,26 @@ productRouter.post("/addproduct", uploadImages, async (req, res) => {
         return res.status(500).json({ msg: "Something went wrong", error: error.message });
     }
 });
+
+productRouter.put("/update/:id",uploadImages,async(req,res)=>{
+    try {
+        const {id} = req.params;
+        if(!id){
+            return res.status(400).send({meassage:"Please provide id"});
+        }
+        
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ msg: "At least one image is required" });
+        }
+
+        const imageUrls = req.files.map(file => `http://localhost:8000/uploads/productImages/${file.filename}`);
+
+        const updatedProduct = await productModel.findByIdAndUpdate({_id:id},{title,description,price,imageUrls});
+        res.status(200).send({msg:"Successfull",updatedProduct});
+    } catch (error) {
+        console.error("Error in adding product:", error);
+        return res.status(500).json({ msg: "Something went wrong", error: error.message });
+    }
+})
 
 module.exports = productRouter;
