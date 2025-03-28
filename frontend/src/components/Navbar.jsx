@@ -1,12 +1,12 @@
 import React from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styles from "./navbar.module.css";
-
 const Navbar = () => {
     const navigate = useNavigate();
   return (
     <div
-    className={styles.navbar}>
+    className={styles.navbar}
+    >
         <div
         onClick={()=>{
             navigate("/");
@@ -14,13 +14,11 @@ const Navbar = () => {
         >
             <h1>Home</h1>
         </div>
-
         <div>
             <p onClick={()=>{
                 navigate("/addproducts");
-            }}>App Products</p>
+            }}>Add Products</p>
         </div>
-
         <div>
         <div
         onClick={()=>{

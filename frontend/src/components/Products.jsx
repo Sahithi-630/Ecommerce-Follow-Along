@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import axios from "axios";
 import Card from './Card';
 import styles from "./products.module.css";
-
 const Products = () => {
-
     const [products,setProducts] = useState([]);
     function getData(){
         axios.get("https://fakestoreapi.com/products")
@@ -16,7 +14,7 @@ const Products = () => {
         })
     }
 
-    
+
     useEffect(()=>{
         getData();
     },[])

@@ -1,4 +1,4 @@
-formbox{
+.formbox{
     border: 3px solid blue;
     width: max-content;
     margin: auto;
