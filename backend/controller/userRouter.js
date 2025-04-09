@@ -1,88 +1,56 @@
 const express = require("express");
-const userModel = require("../models/userModel");
-const bcrypt = require("bcryptjs");
-const { userImage } = require("../middlewares/multer");
-const jwt = require('jsonwebtoken');
-
-const userRouter = express.Router();
+const productRouter = express.Router();
+const productModel = require("../models/productsModel");
+const { productImages } = require("../middlewares/multer");
 
 
-userRouter.post("/signup", async (req, res) => {
+const uploadImages = (req, res, next) => {
+    
+    productImages.array("images", 6)(req, res, (err) => {
+        const { title, description, price } = req.body;
+        if (!title || !description || !price) {
+            return res.status(400).json({ msg: "Please fill all fields" });
+        }
+        if (err) {
+            return res.status(400).json({ msg: "File upload error", error: err.message });
+        }
+        
+        next();
+    });
+};
+
+productRouter.post("/addproduct", uploadImages, async (req, res) => {
     try {
+        const { title, description, price } = req.body;
 
-        userImage.single("image")(req, res, async (err) => {
-            if (err) {
-                console.log(err)
-                return res.status(400).json({ message: "File upload error", error: err.message });
-            }
+        // Validate required fields BEFORE processing images
+        
 
-            const { name, email, password } = req.body;
+        // Ensure at least one image is uploaded
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ msg: "At least one image is required" });
+        }
 
-            if (!name || !email || !password) {
-                return res.status(400).json({ message: "All details are required" });
-            }
+        // Construct image URLs
+        const imageUrls = req.files.map(file => `http://localhost:8080/uploads/productImages/${file.filename}`);
 
-            const userExists = await userModel.findOne({ email });
-            if (userExists) {
-                return res.status(400).json({ message: "User Already Registered" });
-            }
-
-            // Hash password securely
-            const saltRounds = 10;
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-            // Handle image upload (if provided)
-            const imageUrl = req.file 
-                ? `http://localhost:8080/uploads/userImages/${req.file.filename}`
-                : null;
-
-            // Create user
-            const newUser = await userModel.create({ 
-                name, 
-                email, 
-                password: hashedPassword, 
-                image: imageUrl 
-            });
-            const token = jwt.sign({ name:newUser.name,email:newUser.email,id:newUser.id }, process.env.JWT_PASSWORD);
-            return res.status(201).json({ message: "User registered successfully", token:token,name,id:newUser.id });
+        // Save product only if validation passes
+        const newProduct = new productModel({
+            title,
+            description,
+            price,
+            images: imageUrls,
+            userId: req.userId
         });
+
+        await newProduct.save();
+
+        return res.status(201).json({ msg: "Product added successfully", images: imageUrls });
+
     } catch (error) {
-        console.error("Signup Error:", error);
-        return res.status(500).json({ error: "Internal Server Error" });
+        console.error("Error in adding product:", error);
+        return res.status(500).json({ msg: "Something went wrong", error: error.message });
     }
 });
 
-// Login Route
-userRouter.post("/login", async (req, res) => {
-    try {
-        console.log("email,password")
-        const { email, password } = req.body;
-        
-        if (!email || !password) {
-            return res.status(400).json({ message: "All details are required" });
-        }
-
-        const user = await userModel.findOne({ email });
-
-        if (!user) {
-            return res.status(401).json({ message: "Invalid email or password" });
-        }
-
-        
-        const matchedPass = bcrypt.compareSync(password, user.password);
-
-        if (matchedPass) {
-            const token = jwt.sign({ name:user.name,email:user.email,id:user.id }, process.env.JWT_PASSWORD);
-            return res.status(200).json({ message: "User logged in successfully",token,name:user.name,id:user.id });
-        } else {
-            return res.status(401).json({ message: "Invalid email or password" });
-        }
-
-        
-    } catch (error) {
-        console.error("Login Error:", error);
-        return res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
-module.exports = userRouter;
+module.exports = productRouter;
