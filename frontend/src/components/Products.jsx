@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios";
+import React from 'react'
+import axios from "axios"
+import { useEffect } from 'react';
+import { useState } from 'react';
 import Card from './Card';
 import styles from "./products.module.css";
+
 const Products = () => {
     const [products,setProducts] = useState([]);
+
     function getData(){
-        axios.get("https://fakestoreapi.com/products")
+        axios.get("https://fakestoreapi.com/allproducts")
         .then((data)=>{
             console.log(data);
             setProducts(data.data);
@@ -14,6 +18,7 @@ const Products = () => {
         })
     }
 
+   
 
     useEffect(()=>{
         getData();
@@ -21,14 +26,15 @@ const Products = () => {
 
   return (
     <>
-        <h1>Products</h1>
-        <div className={styles.products}>
-        {
-            products.map((ele)=>{
-                return <Card key={ele.id} product={ele}/>
-            })
-        }
+    <h1>Products</h1>
+    <div className={styles.products}>
+      {
+        products.map((ele)=>{
+            return <Card key={ele.id} product={ele}/>
+        })
+      }
     </div>
+
     </>
   )
 }
