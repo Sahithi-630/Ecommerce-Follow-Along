@@ -97,3 +97,7 @@ Whether you're a beginner or intermediate developer, this project will help you 
 
   # **Milestone 19: Backend endpoint for cart item quantity**
   *Created put request for updating quantity for cart item.
+
+  # **Milestone 20: Backend endpoint for UserDetails**
+  *Created endpoint for UserDetails in backend.
+  *Created User.jsx for UserDetails in frontend.
