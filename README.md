@@ -101,3 +101,8 @@ Whether you're a beginner or intermediate developer, this project will help you 
   # **Milestone 20: Backend endpoint for UserDetails**
   *Created endpoint for UserDetails in backend.
   *Created User.jsx for UserDetails in frontend.
+
+  # **Milestone 21: Created frontend fro address**
+  *Created route for Add address page in frontend.
+  *Created form for adding address.
+  *Stored address using useState Hook.
