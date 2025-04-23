@@ -110,3 +110,9 @@ Whether you're a beginner or intermediate developer, this project will help you 
   # **Milestone 22: Created backend for address and attached with frontend**
   *Created backend endpoint for handling address.
   *Added backend endpoint with frontend.
+
+  # **Milestone 23: Worked on address in frontend and backend**
+  * Created placeholder button in cart page and added navigation to select address.
+  * Created select address page and provided option to select one address.
+  * Created backend endpoint to sent all address to user.
+  

@@ -1,101 +1,120 @@
 const express = require("express");
-const productRouter = express.Router();
-const productModel = require("../models/productsModel");
-const { productImages } = require("../middlewares/multer");
+const userModel = require("../models/userModel");
+const bcrypt = require("bcryptjs");
+const { userImage } = require("../middleware/multer");
+const jwt = require('jsonwebtoken');
+
+const userRouter = express.Router();
 
 
-const uploadImages = (req, res, next) => {
-    
-    productImages.array("images", 6)(req, res, (err) => {
-        const { title, description, price } = req.body;
-        if (!title || !description || !price) {
-            return res.status(400).json({ msg: "Please fill all fields" });
-        }
-        if (err) {
-            return res.status(400).json({ msg: "File upload error", error: err.message });
-        }
-        
-        next();
-    });
-};
-
-productRouter.post("/addproduct", uploadImages, async (req, res) => {
+userRouter.post("/signup", async (req, res) => {
     try {
-        const { title, description, price } = req.body;
 
-        // Validate required fields BEFORE processing images
-        
+        userImage.single("image")(req, res, async (err) => {
+            if (err) {
+                console.log(err)
+                return res.status(400).json({ message: "File upload error", error: err.message });
+            }
 
-        // Ensure at least one image is uploaded
-        if (!req.files || req.files.length === 0) {
-            return res.status(400).json({ msg: "At least one image is required" });
-        }
+            const { name, email, password } = req.body;
 
-        // Construct image URLs
-        const imageUrls = req.files.map(file => `http://localhost:8080/uploads/productImages/${file.filename}`);
+            if (!name || !email || !password) {
+                return res.status(400).json({ message: "All details are required" });
+            }
 
-        // Save product only if validation passes
-        const newProduct = new productModel({
-            title,
-            description,
-            price,
-            images: imageUrls,
-            userId: req.userId
+            const userExists = await userModel.findOne({ email });
+            if (userExists) {
+                return res.status(400).json({ message: "User Already Registered" });
+            }
+
+
+            const saltRounds = 10;
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+
+            const imageUrl = req.file 
+                ? `http://localhost:8080/uploads/userImages/${req.file.filename}`
+                : null;
+
+
+            const newUser = await userModel.create({ 
+                name, 
+                email, 
+                password: hashedPassword, 
+                image: imageUrl 
+            });
+            const token = jwt.sign({ name:newUser.name,email:newUser.email,id:newUser.id }, process.env.JWT_PASSWORD);
+            return res.status(201).json({ message: "User registered successfully", token:token,name,id:newUser.id });
         });
-
-        await newProduct.save();
-
-        return res.status(201).json({ msg: "Product added successfully", images: imageUrls });
-
     } catch (error) {
-        console.error("Error in adding product:", error);
-        return res.status(500).json({ msg: "Something went wrong", error: error.message });
+        console.error("Signup Error:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
     }
 });
 
-productRouter.put("/update/:id",uploadImages,async(req,res)=>{
+
+userRouter.post("/login", async (req, res) => {
     try {
-        const{id} = req.params;
-        if(!id){
-            return res.status(400).send({message:"please provide id"});
+        console.log("email,password")
+        const { email, password } = req.body;
+        
+        if (!email || !password) {
+            return res.status(400).json({ message: "All details are required" });
         }
-        const { title, description, price } = req.body;
+
+        const user = await userModel.findOne({ email });
+
+        if (!user) {
+            return res.status(401).json({ message: "Invalid email or password" });
+        }
 
         
-        if (!req.files || req.files.length === 0) {
-            return res.status(400).json({ msg: "At least one image is required" });
+        const matchedPass = bcrypt.compareSync(password, user.password);
+
+        if (matchedPass) {
+            const token = jwt.sign({ name:user.name,email:user.email,id:user.id }, process.env.JWT_PASSWORD);
+            return res.status(200).json({ message: "User logged in successfully",token,name:user.name,id:user.id,userImage:user.image});
+        } else {
+            return res.status(401).json({ message: "Invalid email or password" });
         }
 
-        const imageUrls = req.files.map(file => `http://localhost:8080/uploads/productImages/${file.filename}`);
+        
+    } catch (error) {
+        console.error("Login Error:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
-        const updatedProduct = await productModel.findByIdAndUpdate({_id:id},{title,description,price,imageUrls});
 
-        res.status(200).send({message:"sucessful",updatedProduct});
+userRouter.put("/updateAddress/:id",async(req,res)=>{
+    try {
+        const {country,city,address1,address2,zipCode} = req.body;
+
+        if(!country || !city || !address1 || !address2 || !zipCode){
+            return res.status(400).send({
+                message:"All fields are required",
+            });
+        }
+
+        if(!id){
+            return res.status(400).send({
+                message:"please login",
+            });
+        }
+
+        const updatedUserAddress = await userModel.findByIdAndUpdate({_id:id},{...req.body});
+        if(!updatedUserAddress){
+            return res.status(400).send({
+                message:"User Not Found",
+            });
+        }
+
+        return res.status(200).send({message:"user updated sucessfully"});
 
     } catch (error) {
-        console.error("Error in adding product:", error);
-        return res.status(500).json({ msg: "Something went wrong", error: error.message });
+        console.error("address error:", error);
+        return res.status(500).json({ error: "Internal Server Error" }); 
     }
 })
 
-productRouter.delete("/delete/:id",async(req,res)=>{
-    try {
-        const{id} = req.params;
-        if(!id){
-            return res.status(400).send({message:"please provide id"});
-        }
-        
-
-        
-        const updatedProduct = await productModel.findByIdAndDelete({_id:id});
-             if(!updatedProduct){
-                return res.status(404).send({message:"id not found"});
-             }
-        return res.status(200).send({message:"sucessfully deleted"});
-
-    } catch (error) {
-        console.error("Error in deleting product:", error);
-        return res.status(500).json({ msg: "Something went wrong", error: error.message });
-    }
-})
-module.exports = productRouter;
+module.exports = userRouter;

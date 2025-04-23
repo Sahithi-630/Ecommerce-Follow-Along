@@ -2,27 +2,27 @@ const express = require("express");
 
 const allProductRouter = express.Router();
 
-const productsModel = require("../models/productsModel")
+const productModel = require("../models/productModel");
 
-allProductRouter.get('/',async(req,res)=>{
+allProductRouter.get("/",async(req,res)=>{
     try {
-        const products = await productsModel.find();
-        return res.status(200).send({msg:"Successfull",products});
+        const products = await productModel.find();
+        return res.status(200).send({message:"sucessful",products:products})
     } catch (error) {
-        return res.status(500).send({msg:"Something went wrong"});
+        return res.status(500).send({message:"something went wrong"});
     }
 })
 
-allProductRouter.get('/:id',async(req,res)=>{
+allProductRouter.get("/:id",async(req,res)=>{
     try {
         const {id} = req.params;
         if(!id){
-            return res.status(400).send({msg:"Please provide id.."});
+            return res.status(400).send({message:"please provide id"});
         }
-        const product = await productsModel.findOne({_id:id});
-        return res.status(200).send({msg:"Successfull",product});
+        const product = await productModel.findOne({_id:id});
+        return res.status(200).send({message:"sucessful",product:product});
     } catch (error) {
-        return res.status(500).send({msg:"Something went wrong"});
+        return res.status(500).send({message:"something went wrong"});
     }
 })
 

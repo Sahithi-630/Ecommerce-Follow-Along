@@ -1,43 +1,65 @@
-
-import React, { useEffect, useState } from 'react'
-import axios from "axios";
-import Card from './Card';
-import styles from "./products.module.css";
-import MyProductCard from './MyProductCard';
-const MyProducts = () => {
-    const [products,setProducts] = useState([]);
-    function getData(){
-        axios.get("http://localhost:8080/allproducts")
-        .then((data)=>{
-            console.log(data);
-
-            const userData = JSON.parse(localStorage.getItem("follow-along-auth-token-user-name-id"))
-            const newData = data.data.products.filter((ele)=>{
-                return ele.userId == userData.id; 
-            })
-            setProducts(newData);
-        }).catch((err)=>{
-            console.log(console.error(err));
-        })
-    }
-
-
+import React, { useEffect } from 'react'
+import { useNavigate ,useSearchParams} from 'react-router-dom'
+import styles from "./navbar.module.css";
+const Navbar = () => {
+    const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
     useEffect(()=>{
-        getData();
+        const userData = JSON.parse(localStorage.getItem("follow-along-auth-token-user-name-id")) || [];
+        
+        console.log(userData)
+        setSearchParams('userImage',userData.userImage);
     },[])
-
   return (
-    <>
-        <h1>Products</h1>
-        <div className={styles.products}>
-        {
-            products.map((ele)=>{
-                return <MyProductCard key={ele.id} product={ele}/>
-            })
-        }
+    <div
+    className={styles.navbar}
+    >
+        <div
+        onClick={()=>{
+            navigate("/");
+        }}
+        >
+            <h1>Home</h1>
+        </div>
+        <div>
+            <p onClick={()=>{
+                navigate("/addproducts");
+            }}>Add Products</p>
+        </div>
+        <div>
+            <div
+            onClick={()=>{
+                navigate("/myproducts");
+            }}
+            >My Products</div>
+        </div>
+        <div>
+            <div
+            onClick={()=>navigate("/cart")}
+            >Cart</div>
+        </div>
+        <div>
+            <div>
+                <div
+                onClick={
+                    ()=>navigate('/user')
+                }
+                >User</div>
+            </div>
+        <div
+        onClick={()=>{
+            navigate("/login");
+        }}
+        >Login</div>
+        <div
+        onClick={()=>{
+            navigate("/signup");
+        }}
+        >Signup</div>
+        </div>
+        
     </div>
-    </>
   )
 }
 
-export default MyProducts;
+export default Navbar
