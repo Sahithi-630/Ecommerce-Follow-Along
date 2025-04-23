@@ -116,3 +116,9 @@ Whether you're a beginner or intermediate developer, this project will help you 
   * Created select address page and provided option to select one address.
   * Created backend endpoint to sent all address to user.
   
+  # **Milestone 24: Worked on address in frontend and backend**
+  *Displayed all of products in cart.
+  *Displayed All address in address section page.
+  *Displayed total price in cart.
+  *Added place order button at the button.
+  
