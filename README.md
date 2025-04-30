@@ -126,4 +126,7 @@ Whether you're a beginner or intermediate developer, this project will help you 
   *Created endpoint for order.
   *Implementing mail service from nodemailer.
   *Handling address for the delivery.
-  
+
+  # **Milestone 26: Worked on order backend and email service**
+  *Implemented mail with nodemailer.
+  *Sending order details to user via mail.
