@@ -122,3 +122,8 @@ Whether you're a beginner or intermediate developer, this project will help you 
   *Displayed total price in cart.
   *Added place order button at the button.
   
+  # **Milestone 25: Worked on order backend and email service**
+  *Created endpoint for order.
+  *Implementing mail service from nodemailer.
+  *Handling address for the delivery.
+  
