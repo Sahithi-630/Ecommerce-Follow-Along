@@ -134,3 +134,9 @@ Whether you're a beginner or intermediate developer, this project will help you 
   # **Milestone 27: Worked on frontend for my order page**
   *Created get request to get requesy my orders
   
+
+  # **Milestone 28: **
+  *In my-orders page for every order add cancel order button
+  *If the order is already canceled this button should not be displayed
+  *You need to create an endpoint that will receive the order-id
+  *Get the order using this id and mark the status canceled and save
