@@ -135,8 +135,9 @@ Whether you're a beginner or intermediate developer, this project will help you 
   *Created get request to get requesy my orders
   
 
-  # **Milestone 28: **
-  *In my-orders page for every order add cancel order button
-  *If the order is already canceled this button should not be displayed
-  *You need to create an endpoint that will receive the order-id
-  *Get the order using this id and mark the status canceled and save
+  # **Milestone 28: Cancle oreder payment**
+  *Added cancel order functionality.
+  *Created end point for payment id.
+
+   # **Milestone 29: payment**
+   *Integrated dunny payment.
