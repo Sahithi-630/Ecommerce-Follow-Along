@@ -139,5 +139,8 @@ Whether you're a beginner or intermediate developer, this project will help you 
   *Added cancel order functionality.
   *Created end point for payment id.
 
-   # **Milestone 29: payment**
-   *Integrated dunny payment.
+  # **Milestone 29: payment**
+  *Integrated dunny payment.
+
+  # **Milestone 30: payment**
+  *Worked on payment method.
