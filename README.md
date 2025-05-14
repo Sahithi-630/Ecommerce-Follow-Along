@@ -145,10 +145,15 @@ Whether you're a beginner or intermediate developer, this project will help you 
   # **Milestone 30: payment**
   *Worked on payment method.
 
-  # **Milestone 31: Redux implementation
+  # **Milestone 31: Redux implementation**
   *Implemented Redux in frontend.
   *Used redux in User details page.
 
-  # **Milestone 32: Redux implementation
+  # **Milestone 32: Redux implementation**
   *Implemented Redux in frontend.
+
+  # **Milestone 33: Setting up token in cookies**
+  *Implementined cookies auth by using cookie-parser npm package.
+  *Added cookie by login page.
+  
 
