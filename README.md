@@ -156,4 +156,7 @@ Whether you're a beginner or intermediate developer, this project will help you 
   *Implementined cookies auth by using cookie-parser npm package.
   *Added cookie by login page.
   
+  # **Milestone 34: setting up token in cookies**
+  *Implemented token and cookies in frontend and backend both.
+  
 
